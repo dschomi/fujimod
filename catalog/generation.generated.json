@@ -1628,13 +1628,8 @@
           ]
         },
         "settings": {
-          "status": "unavailable",
-          "errors": [
-            {
-              "locator": "settings",
-              "reason": "SettingsCatalogError: No settings profile is available for this firmware"
-            }
-          ]
+          "status": "available",
+          "errors": []
         },
         "state": {
           "status": "unavailable",
