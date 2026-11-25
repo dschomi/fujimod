@@ -131,28 +131,68 @@
           "kind": "positions",
           "positions": [
             {
-              "id": "A"
+              "id": "A",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_A"
+              },
+              "asserted": true
             },
             {
-              "id": "16"
+              "id": "16",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F16"
+              },
+              "asserted": true
             },
             {
-              "id": "11"
+              "id": "11",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F11"
+              },
+              "asserted": true
             },
             {
-              "id": "8"
+              "id": "8",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F8.0"
+              },
+              "asserted": true
             },
             {
-              "id": "5.6"
+              "id": "5.6",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F5.6"
+              },
+              "asserted": true
             },
             {
-              "id": "4"
+              "id": "4",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F4.0"
+              },
+              "asserted": true
             },
             {
-              "id": "2.8"
+              "id": "2.8",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F2.8"
+              },
+              "asserted": true
             },
             {
-              "id": "2"
+              "id": "2",
+              "key": {
+                "kind": "debug_key",
+                "name": "I-M_F2.0"
+              },
+              "asserted": true
             }
           ]
         }
@@ -223,7 +263,11 @@
       "default_function": "Deletes pictures in playback; press and hold while pressing the center of the rear command dial to display the format menu.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "DELETE"
+        }
       }
     },
     "diopter_adjustment_control": {
@@ -252,7 +296,11 @@
       "default_function": "Controls indicator display and returns to the previous menu; in playback it is the RAW conversion button. Press and hold to display function-button role selection.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "DISP_B"
+        }
       }
     },
     "exposure_compensation_dial": {
@@ -304,28 +352,68 @@
           "kind": "positions",
           "positions": [
             {
-              "id": "−3"
+              "id": "−3",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D-3.0"
+              },
+              "asserted": true
             },
             {
-              "id": "−2"
+              "id": "−2",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D-2.0"
+              },
+              "asserted": true
             },
             {
-              "id": "−1"
+              "id": "−1",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D-1.0"
+              },
+              "asserted": true
             },
             {
-              "id": "0"
+              "id": "0",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D=0"
+              },
+              "asserted": true
             },
             {
-              "id": "+1"
+              "id": "+1",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D+1.0"
+              },
+              "asserted": true
             },
             {
-              "id": "+2"
+              "id": "+2",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D+2.0"
+              },
+              "asserted": true
             },
             {
-              "id": "+3"
+              "id": "+3",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D+3.0"
+              },
+              "asserted": true
             },
             {
-              "id": "C"
+              "id": "C",
+              "key": {
+                "kind": "debug_key",
+                "name": "E-D=C"
+              },
+              "asserted": true
             }
           ]
         }
@@ -358,13 +446,28 @@
         "kind": "switch",
         "positions": [
           {
-            "id": "S"
+            "id": "S",
+            "key": {
+              "kind": "debug_key",
+              "name": "MF_AF_A"
+            },
+            "asserted": true
           },
           {
-            "id": "C"
+            "id": "C",
+            "key": {
+              "kind": "debug_key",
+              "name": "MF_AF_C"
+            },
+            "asserted": true
           },
           {
-            "id": "M"
+            "id": "M",
+            "key": {
+              "kind": "debug_key",
+              "name": "MF_AF_M"
+            },
+            "asserted": true
           }
         ]
       }
@@ -381,10 +484,26 @@
       "behavior": {
         "kind": "pad",
         "directions": {
-          "up": null,
-          "down": null,
-          "left": null,
-          "right": null
+          "up": {
+            "kind": "debug_key",
+            "name": "8DIR_U"
+          },
+          "down": {
+            "kind": "debug_key",
+            "name": "8DIR_D"
+          },
+          "left": {
+            "kind": "debug_key",
+            "name": "8DIR_L"
+          },
+          "right": {
+            "kind": "debug_key",
+            "name": "8DIR_R"
+          }
+        },
+        "press": {
+          "kind": "debug_key",
+          "name": "8DIR_PUSH"
         }
       }
     },
@@ -401,6 +520,10 @@
         "kind": "dial",
         "motion": {
           "kind": "steps"
+        },
+        "press": {
+          "kind": "debug_key",
+          "name": "CMD_PUSH"
         }
       }
     },
@@ -430,7 +553,11 @@
       "default_function": "Opens or confirms menu selections; press and hold to lock or unlock the selector and Q button during shooting.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "EXE_M"
+        }
       }
     },
     "metering_button": {
@@ -456,7 +583,11 @@
       "default_function": "Starts playback; half-press the shutter button to return to shooting mode.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "K_PLAY"
+        }
       }
     },
     "power_switch": {
@@ -500,7 +631,11 @@
       "default_function": "Displays the quick menu; press and hold to edit quick-menu options, or while the quick menu is displayed to edit custom settings.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "K_Q"
+        }
       }
     },
     "rear_command_dial": {
@@ -516,6 +651,10 @@
         "kind": "dial",
         "motion": {
           "kind": "steps"
+        },
+        "press": {
+          "kind": "debug_key",
+          "name": "CMD2_PUSH"
         }
       }
     },
@@ -529,7 +668,25 @@
       "default_function": "Press up, right, down, or left to highlight items. In shooting mode, up is DRIVE; left is Fn3 (film simulation), right is Fn4 (white balance), and down is Fn5 (AF mode).",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "pad",
+        "directions": {
+          "up": {
+            "kind": "debug_key",
+            "name": "UP"
+          },
+          "down": {
+            "kind": "debug_key",
+            "name": "DOWN"
+          },
+          "left": {
+            "kind": "debug_key",
+            "name": "LEFT"
+          },
+          "right": {
+            "kind": "debug_key",
+            "name": "RIGHT"
+          }
+        }
       }
     },
     "shutter_button": {
@@ -544,8 +701,22 @@
       "behavior": {
         "kind": "shutter",
         "stages": {
-          "full_press": null,
-          "half_press": null
+          "full_press": [
+            {
+              "kind": "debug_key",
+              "name": "S1"
+            },
+            {
+              "kind": "debug_key",
+              "name": "S2"
+            }
+          ],
+          "half_press": [
+            {
+              "kind": "debug_key",
+              "name": "S1"
+            }
+          ]
         }
       }
     },
@@ -650,64 +821,159 @@
           "kind": "positions",
           "positions": [
             {
-              "id": "B"
+              "id": "B",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-B"
+              },
+              "asserted": true
             },
             {
-              "id": "T"
+              "id": "T",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-T"
+              },
+              "asserted": true
             },
             {
-              "id": "A"
+              "id": "A",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-A"
+              },
+              "asserted": true
             },
             {
-              "id": "4000"
+              "id": "4000",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/4000"
+              },
+              "asserted": true
             },
             {
-              "id": "2000"
+              "id": "2000",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/2000"
+              },
+              "asserted": true
             },
             {
-              "id": "1000"
+              "id": "1000",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/1000"
+              },
+              "asserted": true
             },
             {
-              "id": "500"
+              "id": "500",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/500"
+              },
+              "asserted": true
             },
             {
-              "id": "250"
+              "id": "250",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/250"
+              },
+              "asserted": true
             },
             {
-              "id": "125"
+              "id": "125",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/125"
+              },
+              "asserted": true
             },
             {
-              "id": "60"
+              "id": "60",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/60"
+              },
+              "asserted": true
             },
             {
-              "id": "30"
+              "id": "30",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/30"
+              },
+              "asserted": true
             },
             {
-              "id": "15"
+              "id": "15",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/15"
+              },
+              "asserted": true
             },
             {
-              "id": "8"
+              "id": "8",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/8"
+              },
+              "asserted": true
             },
             {
-              "id": "4"
+              "id": "4",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/4"
+              },
+              "asserted": true
             },
             {
-              "id": "2"
+              "id": "2",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/2"
+              },
+              "asserted": true
             },
             {
-              "id": "1"
+              "id": "1",
+              "key": {
+                "kind": "debug_key",
+                "name": "S-1/1"
+              },
+              "asserted": true
             },
             {
-              "id": "ISO A"
+              "id": "ISO A",
+              "key": {
+                "kind": "debug_key",
+                "name": "ISO_A"
+              },
+              "asserted": true
             },
             {
-              "id": "ISO L (100)"
+              "id": "ISO L (100)",
+              "key": {
+                "kind": "debug_key",
+                "name": "ISO_L"
+              },
+              "asserted": true
             },
             {
               "id": "ISO 200–12800"
             },
             {
-              "id": "ISO H (25600)"
+              "id": "ISO H (25600)",
+              "key": {
+                "kind": "debug_key",
+                "name": "ISO_H1"
+              },
+              "asserted": true
             },
             {
               "id": "ISO H (51200)"
@@ -726,7 +992,11 @@
       "default_function": "Cycles the display among eye-sensor selection, viewfinder only, viewfinder only with eye-sensor switching, and LCD monitor only.",
       "mechanical": false,
       "behavior": {
-        "kind": "button"
+        "kind": "button",
+        "press": {
+          "kind": "debug_key",
+          "name": "VIEW"
+        }
       }
     },
     "viewfinder_selector": {
