@@ -1546,42 +1546,6 @@
           "status": "unavailable",
           "errors": [
             {
-              "locator": "ui_modes",
-              "reason": "ui_hdmi_allowed_in_current_mode: 1 candidates, 0 verified results (0xbed868: HDMI predicate lacks one checked playback/SETUP playback pair)"
-            },
-            {
-              "locator": "menu_cursor",
-              "reason": "menu_cursor_set_node: 0 candidates, 0 verified results"
-            },
-            {
-              "locator": "remote_menu",
-              "reason": "menu_cursor_set_node: 0 candidates, 0 verified results"
-            },
-            {
-              "locator": "ff80_limits",
-              "reason": "usb_service_debug_dispatch: 0 candidates, 0 verified results"
-            },
-            {
-              "locator": "usb_normal_ids",
-              "reason": "Configuration remap guard lacks its comparison"
-            },
-            {
-              "locator": "app80",
-              "reason": "App80 writer lacks the mailbox offset check"
-            },
-            {
-              "locator": "service_entry",
-              "reason": "ui_dispatch_events_from_mode_flags: 0 verified results from 0 candidates"
-            },
-            {
-              "locator": "debug_enable",
-              "reason": "Configuration remap guard lacks its comparison"
-            },
-            {
-              "locator": "service_exit.jig_deinit_link",
-              "reason": "Defaults completion/action slot verified; full UI/SYS deinit routing is not yet located"
-            },
-            {
               "locator": "framebuffer",
               "reason": "Runtime scanout is required; static inspection cannot confirm a live framebuffer"
             }
