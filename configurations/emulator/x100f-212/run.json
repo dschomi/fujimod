@@ -1,0 +1,23 @@
+{
+  "$schema": "https://fujimod.com/schemas/emulator-run-configuration.schema.json",
+  "schema": 1,
+  "id": "x100f-212",
+  "purpose": "rom_boot",
+  "body_id": "x100f",
+  "firmware_id": "x100f-212",
+  "start": {
+    "kind": "loader"
+  },
+  "execution": null,
+  "inputs": null,
+  "scene": null,
+  "overlays": [],
+  "preset": {
+    "factory_options": {},
+    "hardware_selection": {
+      "soc_profile_id": "xpp",
+      "body_profile_id": "x100f-discovery"
+    },
+    "hardware_inputs_id": "x100f-discovery"
+  }
+}
