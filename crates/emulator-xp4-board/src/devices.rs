@@ -1872,6 +1872,51 @@ impl Devices {
         self.models.push(Some(Box::new(model)));
         Ok(())
     }
+    pub fn xpp_stepper(
+        &mut self,
+        stepper: crate::definition::XppStepper,
+        lines: fujimod_emulator_xpp::resets::ExternalLines,
+    ) -> Result<(), String> {
+        use fujimod_emulator_xpp::serial::REGISTERS;
+        use fujimod_emulator_xpp::stepper::{Motor, Pad, StepperPort, Timing, Wiring};
+        let base = stepper.port;
+        if self
+            .windows
+            .iter()
+            .any(|&(lo, hi, _)| base < hi && lo < base + REGISTERS)
+        {
+            return Err("Overlapping X-Processor Pro stepper driver port".into());
+        }
+        let pins = self
+            .pins
+            .as_ref()
+            .ok_or("The stepper driver requires GPIO wiring")?
+            .clone();
+        let pad = |(bank, pin, line): (usize, usize, usize)| Pad { bank, pin, line };
+        let model = StepperPort::new(
+            Wiring {
+                base,
+                motors: stepper
+                    .motors
+                    .into_iter()
+                    .map(|m| Motor {
+                        command: m.command,
+                        busy: m.busy.map(pad),
+                        sensor: m.sensor.map(|(b, p, l, n)| (pad((b, p, l)), n)),
+                    })
+                    .collect(),
+            },
+            Timing {
+                step: stepper.step_ticks,
+            },
+            pins,
+            lines,
+        )?;
+        let id = self.models.len();
+        self.models.push(Some(Box::new(model)));
+        self.windows.push((base, base + REGISTERS, id));
+        Ok(())
+    }
     pub fn xpp_key_lines(
         &mut self,
         keys: crate::definition::XppKeyLines,

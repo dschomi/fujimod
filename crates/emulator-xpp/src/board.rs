@@ -2,7 +2,7 @@
 //! The caller supplies checked wiring, assets, and physical contact inputs.
 use crate::{
     adc, blocks, boot, clocks, display, dram, encoder, face, flash, h264, i2c, imaging, keys, lens,
-    power, resets, sd, serial, shutter, statistics, sync, timer, touch_xt20,
+    power, resets, sd, serial, shutter, statistics, stepper, sync, timer, touch_xt20,
 };
 use fujimod_catalog_configuration::RunEngine;
 use fujimod_emulator::board::{
@@ -404,6 +404,12 @@ pub enum Model {
         base: u64,
         irq: u32,
     },
+    /// Stepper-motor driver on its serial port; follows the GPIO and reset-gate nodes.
+    Stepper {
+        port: u64,
+        step_ticks: u64,
+        motors: Vec<StepperMotor>,
+    },
     /// Shutter motor and sensors on the GPIO banks; follows the GPIO node.
     Shutter {
         mode: (usize, usize),
@@ -500,6 +506,16 @@ impl pl330::Source for Source {
     fn write(&self, address: u64, bytes: &[u8]) -> Result<(), String> {
         self.0.store(address, bytes)
     }
+}
+/// One motor of a stepper-motor driver node.
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct StepperMotor {
+    command: u16,
+    #[serde(default)]
+    busy: Option<(usize, usize, usize)>,
+    #[serde(default)]
+    sensor: Option<(usize, usize, usize, u64)>,
 }
 struct Timers {
     base: u64,
@@ -1474,6 +1490,35 @@ pub fn build(
                         contacts,
                     },
                     pins.clone().ok_or("The lens follows the GPIO bank")?,
+                    lines.clone(),
+                )?;
+                devices.register(port, serial::REGISTERS, Box::new(model))?
+            }
+            Model::Stepper {
+                port,
+                step_ticks,
+                motors,
+            } => {
+                let (_, lines) = gates
+                    .as_ref()
+                    .ok_or("The stepper driver follows the reset gates")?;
+                let pad =
+                    |(bank, pin, line): (usize, usize, usize)| stepper::Pad { bank, pin, line };
+                let model = stepper::StepperPort::new(
+                    stepper::Wiring {
+                        base: port,
+                        motors: motors
+                            .into_iter()
+                            .map(|m| stepper::Motor {
+                                command: m.command,
+                                busy: m.busy.map(pad),
+                                sensor: m.sensor.map(|(b, p, l, n)| (pad((b, p, l)), n)),
+                            })
+                            .collect(),
+                    },
+                    stepper::Timing { step: step_ticks },
+                    pins.clone()
+                        .ok_or("The stepper driver follows the GPIO bank")?,
                     lines.clone(),
                 )?;
                 devices.register(port, serial::REGISTERS, Box::new(model))?

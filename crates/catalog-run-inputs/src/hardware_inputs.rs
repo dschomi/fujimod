@@ -469,6 +469,39 @@ pub struct ShutterInput {
     pub step_ticks: u64,
 }
 
+/// A stepper-motor driver on a serial port: 16-bit command words, per motor a
+/// command nibble with start bit 11, direction bit 10 and a 10-bit step count.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "schema", derive(schemars::JsonSchema))]
+#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "schema", schemars(rename = "ResetStepperDriver"))]
+pub struct StepperDriverInput {
+    /// Declared basis.
+    pub basis: String,
+    /// Serial port base address.
+    pub port: u64,
+    /// Ticks per motor step.
+    pub step_ticks: u64,
+    /// The driver's motors.
+    pub motors: Vec<StepperMotorInput>,
+}
+
+/// One motor of a stepper-motor driver.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "schema", derive(schemars::JsonSchema))]
+#[serde(deny_unknown_fields)]
+#[cfg_attr(feature = "schema", schemars(rename = "ResetStepperMotor"))]
+pub struct StepperMotorInput {
+    /// Top four bits of the words that command this motor.
+    pub command: u64,
+    /// GPIO bank, pin and external interrupt line that read high while it moves.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub busy: Option<(u64, u64, u64)>,
+    /// Position sensor: bank, pin, external line and steps between level changes.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub sensor: Option<(u64, u64, u64, u64)>,
+}
+
 /// Keys whose GPIO inputs also reach external interrupt lines.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[cfg_attr(feature = "schema", derive(schemars::JsonSchema))]
@@ -1435,6 +1468,9 @@ pub struct HardwareReset {
     /// Declared keys on external interrupt lines.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub key_lines: Option<KeyLinesInput>,
+    /// Declared stepper-motor driver on a serial port.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub stepper_driver: Option<StepperDriverInput>,
     /// Declared GPIO pads wired to level-sensitive interrupt inputs.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub gpio_interrupts: Option<GpioInterruptsInput>,

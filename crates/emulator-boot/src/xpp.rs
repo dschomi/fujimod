@@ -997,6 +997,9 @@ fn serial_nodes(
     if let Some(lens) = &reset.lens {
         claim(lens.port, "lens")?;
     }
+    if let Some(stepper) = &reset.stepper_driver {
+        claim(stepper.port, "stepper driver")?;
+    }
     if let Some(sub_cpu) = &reset.sub_cpu {
         claim(sub_cpu.port, "sub-CPU")?;
     }
@@ -1012,6 +1015,13 @@ fn serial_nodes(
     let mut nodes = Vec::new();
     for (n, &base) in ports.bases.iter().enumerate() {
         if reset.lens.as_ref().is_some_and(|lens| lens.port == base) {
+            continue;
+        }
+        if reset
+            .stepper_driver
+            .as_ref()
+            .is_some_and(|stepper| stepper.port == base)
+        {
             continue;
         }
         let peer = if let Some(sub_cpu) = reset.sub_cpu.as_ref().filter(|s| s.port == base) {
@@ -1596,6 +1606,17 @@ fn nodes(
                 "kind": "shutter", "mode": shutter.mode, "motor": shutter.motor,
                 "sensors": shutter.sensors, "line": shutter.line, "positions": shutter.positions,
                 "step_ticks": shutter.step_ticks, "poll_ticks": shutter.poll_ticks,
+            }),
+        );
+    }
+    if let Some(stepper) = &reset.stepper_driver {
+        node(
+            "stepper-driver".into(),
+            json!({
+                "kind": "stepper", "port": stepper.port, "step_ticks": stepper.step_ticks,
+                "motors": stepper.motors.iter().map(|m| json!({
+                    "command": m.command, "busy": m.busy, "sensor": m.sensor,
+                })).collect::<Vec<_>>(),
             }),
         );
     }

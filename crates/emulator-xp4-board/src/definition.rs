@@ -147,6 +147,10 @@ pub struct Definition {
     /// Keys on external interrupt lines: (line, bank, pin) and the poll period.
     #[serde(default)]
     pub xpp_key_lines: Option<XppKeyLines>,
+    /// Stepper-motor driver on an X-Processor Pro serial port; requires
+    /// `xpp_reset_gates` and the GPIO banks.
+    #[serde(default)]
+    pub xpp_stepper: Option<XppStepper>,
     #[serde(default)]
     pub xpp_display_frames: Option<XppDisplayFrames>,
     #[serde(default)]
@@ -496,6 +500,27 @@ pub struct XppShutter {
     pub positions: Vec<Vec<bool>>,
     pub step_ticks: u64,
     pub poll_ticks: u64,
+}
+
+/// Stepper-motor driver: its serial port, the step period and its motors.
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct XppStepper {
+    pub port: u64,
+    pub step_ticks: u64,
+    pub motors: Vec<XppStepperMotor>,
+}
+
+/// One driver motor: its command nibble, the busy pad (bank, pin, line) and
+/// the sensor pad (bank, pin, line) with the steps between its changes.
+#[derive(Clone, Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct XppStepperMotor {
+    pub command: u16,
+    #[serde(default)]
+    pub busy: Option<(usize, usize, usize)>,
+    #[serde(default)]
+    pub sensor: Option<(usize, usize, usize, u64)>,
 }
 
 /// Keys whose GPIO inputs also reach external interrupt lines.

@@ -1488,6 +1488,7 @@ impl Session {
             xpp_lens,
             xpp_shutter,
             xpp_key_lines,
+            xpp_stepper,
             xpp_display_frames,
             xpp_adc,
             xpp_display_outputs,
@@ -2054,6 +2055,9 @@ impl Session {
             if xpp_lens.as_ref().is_some_and(|lens| lens.port == base) {
                 continue;
             }
+            if xpp_stepper.as_ref().is_some_and(|s| s.port == base) {
+                continue;
+            }
             use fujimod_emulator_xpp::serial::Peer;
             let peer = match (&sub_cpu, &battery_gauge) {
                 (Some((port, _)), _) if *port == base => {
@@ -2135,6 +2139,14 @@ impl Session {
             devices
                 .get_or_insert_with(devices::Devices::empty)
                 .xpp_key_lines(keys, lines)?;
+        }
+        if let Some(stepper) = xpp_stepper {
+            let lines = external_lines
+                .clone()
+                .ok_or("The stepper driver requires the reset and gate controls")?;
+            devices
+                .get_or_insert_with(devices::Devices::empty)
+                .xpp_stepper(stepper, lines)?;
         }
         if let (Some(lens), Some(link), Some(lines)) = (xpp_lens, &lens_link, external_lines) {
             devices

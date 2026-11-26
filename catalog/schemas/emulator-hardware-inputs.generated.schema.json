@@ -312,6 +312,17 @@
             "null"
           ]
         },
+        "stepper_driver": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResetStepperDriver"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Declared stepper-motor driver on a serial port."
+        },
         "still_development": {
           "anyOf": [
             {
@@ -3052,6 +3063,115 @@
         "name",
         "samples_per_cell",
         "signal_shift"
+      ],
+      "type": "object"
+    },
+    "ResetStepperDriver": {
+      "additionalProperties": false,
+      "description": "A stepper-motor driver on a serial port: 16-bit command words, per motor a\ncommand nibble with start bit 11, direction bit 10 and a 10-bit step count.",
+      "properties": {
+        "basis": {
+          "description": "Declared basis.",
+          "type": "string"
+        },
+        "motors": {
+          "description": "The driver's motors.",
+          "items": {
+            "$ref": "#/$defs/ResetStepperMotor"
+          },
+          "type": "array"
+        },
+        "port": {
+          "description": "Serial port base address.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "step_ticks": {
+          "description": "Ticks per motor step.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "basis",
+        "port",
+        "step_ticks",
+        "motors"
+      ],
+      "type": "object"
+    },
+    "ResetStepperMotor": {
+      "additionalProperties": false,
+      "description": "One motor of a stepper-motor driver.",
+      "properties": {
+        "busy": {
+          "description": "GPIO bank, pin and external interrupt line that read high while it moves.",
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            }
+          ],
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "command": {
+          "description": "Top four bits of the words that command this motor.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sensor": {
+          "description": "Position sensor: bank, pin, external line and steps between level changes.",
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "format": "uint64",
+              "minimum": 0,
+              "type": "integer"
+            }
+          ],
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "command"
       ],
       "type": "object"
     },
