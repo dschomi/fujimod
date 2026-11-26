@@ -130,7 +130,8 @@ impl ExternalLines {
         self.0.lock().unwrap().polarity = polarity;
         self.update(cx);
     }
-    fn levels(&self) -> u32 {
+    /// Asserted lines, bit n for line n.
+    pub(crate) fn levels(&self) -> u32 {
         self.0.lock().unwrap().levels
     }
     fn restore(&self, polarity: u32, levels: u32) {

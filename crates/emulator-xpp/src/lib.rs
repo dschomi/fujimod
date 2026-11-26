@@ -25,6 +25,7 @@ pub mod sd;
 pub mod serial;
 pub mod shutter;
 pub mod statistics;
+pub mod stepper;
 pub mod sync;
 pub mod timer;
 pub mod touch_xt20;
