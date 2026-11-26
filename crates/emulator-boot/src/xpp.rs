@@ -988,8 +988,11 @@ fn serial_nodes(
     };
     let mut claimed = Vec::new();
     let mut claim = |port: u64, label: &str| {
-        if !ports.bases.contains(&port) || claimed.contains(&port) {
-            return Err(format!("{label} port {port:#x} is not a free serial port"));
+        if !ports.bases.contains(&port) {
+            return Err(format!("{label} port {port:#x} is not a serial port"));
+        }
+        if claimed.contains(&port) {
+            return Err(format!("{label} port {port:#x} is already claimed by another serial peer"));
         }
         claimed.push(port);
         Ok(())
