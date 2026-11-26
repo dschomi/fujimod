@@ -1561,13 +1561,8 @@
           ]
         },
         "flash": {
-          "status": "unavailable",
-          "errors": [
-            {
-              "locator": "publication_error",
-              "reason": "empty state capture"
-            }
-          ]
+          "status": "available",
+          "errors": []
         },
         "memory-reservations": {
           "status": "available",
@@ -1601,10 +1596,6 @@
             {
               "locator": "boot_rom_error",
               "reason": "xpp: no established safely readable boot ROM extent"
-            },
-            {
-              "locator": "publication_error",
-              "reason": "empty state capture"
             }
           ]
         },
